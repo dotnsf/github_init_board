@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C/DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>GitHub OAuth API Sample</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="apple-web-app-capable" content="yes"/>
+
+<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+html, body{
+  text-align: center;
+  background-color: #fafafa;
+  font-size: 20px;
+  color: #333;
+}
+</style>
+<script>
+$(function(){
+  $.ajax({
+    url: './api/isLoggedIn',
+    type: 'GET',
+    success: function( result ){
+      console.log( result );
+      if( result.status ){
+        //. logged in
+        $('#login_btn').css( 'display', 'none' );
+        $('#logout_btn').css( 'display', 'block' );
+        $('#main_container').css( 'display', 'block' );
+        $('#logout_btn').html( '<img src="' + result.user.avatar_url + '" height="36"/>' );
+        $('#logout_btn').prop( "title", "" + result.user.id );
+        $('#init_btn').css( 'display', 'block' );
+      }else{
+        //. not logged in
+        $('#login_btn').css( 'display', 'block' );
+        $('#logout_btn').css( 'display', 'none' );
+        $('#main_container').css( 'display', 'none' );
+        $('#init_btn').css( 'display', 'none' );
+      }
+    },
+    error: function( e0, e1, e2 ){
+      $('#login_btn').css( 'display', 'block' );
+      $('#logout_btn').css( 'display', 'none' );
+      $('#main_container').css( 'display', 'none' );
+      $('#init_btn').css( 'display', 'none' );
+    }
+  });
+});
+
+function my_login(){
+  location.href = './api/login';
+}
+
+function my_logout(){
+  if( confirm( 'ログアウトしますか？' ) ){
+    $.ajax({
+      url: './api/logout',
+      type: 'GET',
+      success: function( result ){
+        location.href = './';
+      },
+      error: function( e0, e1, e2 ){
+        console.log( e0, e1, e2 );
+        $('#info').html( e0, e1, e2 );
+      }
+    });
+  }
+}
+
+function my_info(){
+  $.ajax({
+    url: './api/me',
+    type: 'GET',
+    success: function( result ){
+      $('#info').html( JSON.stringify( result, null, 2 ) );
+    },
+    error: function( e0, e1, e2 ){
+      $('#info').html( e0, e1, e2 );
+    }
+  });
+}
+
+function init_target(){
+  var repo_owner_name = $('#repo_owner_name').val();
+  if( confirm( repo_owner_name + 'の Issue Board を初期化しますか？' ) ){
+    $.ajax({
+      url: './api/init',
+      type: 'POST',
+      data: { repo_owner_name: repo_owner_name },
+      success: function( result ){
+        $('#info').html( JSON.stringify( result, null, 2 ) );
+      },
+      error: function( e0, e1, e2 ){
+        $('#info').html( e0, e1, e2 );
+      }
+    });
+  }
+}
+</script>
+</head>
+<body>
+
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">GitHub OAuth API Sample</a>
+  <ul class="navbar-nav mr-auto">
+  </ul>
+  <ul class="navbar-nav" id="navbar">
+    <button class="btn btn-primary" id="login_btn" onClick="my_login();">login</button>
+    <button class="btn btn-primary" id="logout_btn" onClick="my_logout();" title="logout">logout</button>
+  </ul>
+</nav>
+
+<div class="container" id="main_container">
+  <input type="text" id="repo_owner_name" class="form-control" placeholder="dotnsf/github_training_issues_test" value="dotnsf/github_training_issues_test"/><br/>
+  <button class="btn btn-warning" id="init_btn" onClick="init_target();">init</button>
+</div>
+
+<div class="container" id="info">
+</div>
+
+</body>
+</html>

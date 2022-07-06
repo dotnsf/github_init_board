@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Documents",  
+    "description": "Documents related work.",  
+    "color": "cccccc"
+  },
+  {
+    "name": "API",  
+    "description": "Backend/API related work.",  
+    "color": "ffffcc"
+  },
+  {
+    "name": "UI",  
+    "description": "UI/UX related work.",  
+    "color": "ccffcc"
+  },
+  {
+    "name": "DB",  
+    "description": "DB related work.",  
+    "color": "ffcccc"
+  },
+  {
+    "name": "Bug",  
+    "description": "Bug fix work.",  
+    "color": "ffccff"
+  }
+]

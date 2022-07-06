@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Sprint 0",
+    "description": "Milestone/Sprint 0(Preparing for development)",
+    "state": "open",
+    "due_on": ""
+  },
+  {
+    "title": "Sprint 1",
+    "description": "Milestone/Sprint 1",
+    "state": "open",
+    "due_on": ""
+  },
+  {
+    "title": "",
+    "description": "Milestone/Sprint 2",
+    "state": "open",
+    "due_on": ""
+  },
+  {
+    "title": "",
+    "description": "Milestone/Sprint 3",
+    "state": "open",
+    "due_on": ""
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Issue 1",  
+    "body": "Documents related work.",  
+    "labels": [ "Documents" ]
+  },
+  {
+    "title": "Issue 2",  
+    "body": "API related work.",  
+    "labels": [ "API" ]
+  },
+  {
+    "title": "Issue 3",  
+    "body": "- [ ] check1\n- [ ] check2\n- [ ] check3\n",  
+    "labels": [ "UI" ]
+  },
+  {
+    "title": "Issue 4",  
+    "body": "check1\\ncheck2\\ncheck3\\n",  
+    "labels": [ "API", "Bug" ]
+  }
+]
